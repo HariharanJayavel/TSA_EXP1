@@ -11,27 +11,26 @@ To Develop a python program to Plot a time series data ( market price of a commo
 4. Plot the data according to need and can be altered monthly, or yearly.
 5. Display the graph.
 # PROGRAM:
-```c
+```python
+
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
-import numpy as np
-from statsmodels.tsa.seasonal import seasonal_decompose
-df=pd.read_csv('/content/Crypto Data Since 2015.csv')
-df.head()
-x=df['Date']
-y=df['Bitcoin (USD)']
+df = pd.read_csv('/content/Crypto Data Since 2015.csv')
+df['Date'] = pd.to_datetime(df['Date'])
+df.set_index('Date', inplace=True)
+monthly_bitcoin = df['Bitcoin (USD)'].resample('ME').mean()
 plt.figure(figsize=(10,5))
-plt.plot(x,y)
-plt.title("Bitcoin Price Analysis")
-plt.xlabel("Date")
+plt.plot(monthly_bitcoin.index, monthly_bitcoin.values, marker='o')
+plt.title("Bitcoin Yearly Average Price")
+plt.xlabel("Year")
 plt.ylabel("Bitcoin (USD)")
 plt.show()
+
 ```
 
 # OUTPUT:
 
-<img width="881" height="470" alt="image" src="https://github.com/user-attachments/assets/6ca4bea2-8028-4605-a693-f200d05ed739" />
+<img width="887" height="470" alt="image" src="https://github.com/user-attachments/assets/1b0726c5-31da-4da2-89df-20c697299bf4" />
 
 # RESULT:
 Thus we have created the python code for plotting the time series of given data.
